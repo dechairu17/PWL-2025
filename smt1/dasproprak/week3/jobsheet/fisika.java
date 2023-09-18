@@ -1,4 +1,4 @@
-18package week3.jobsheet;
+package week3.jobsheet;
 
 import java.util.Scanner;
 
