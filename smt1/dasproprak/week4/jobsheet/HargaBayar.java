@@ -1,8 +1,10 @@
 package week4.jobsheet;
 
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class HargaBayar {
+    String[] namaObat = {"Volvo", "BMW", "Ford", "Mazda"};
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         
