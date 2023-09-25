@@ -1,6 +1,6 @@
 package week5.jobsheet;
 import java.util.Scanner;
-public class PemilihanPecobaan308 {
+public class PemilihanPercobaan308 {
     public static void main(String[] args) {
         Scanner input08 =new Scanner(System.in);
         double angka1, angka2, hasil;

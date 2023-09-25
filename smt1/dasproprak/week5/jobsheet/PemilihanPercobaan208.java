@@ -1,6 +1,6 @@
 package week5.jobsheet;
 import java.util.Scanner;
-public class PemillihanPercobaan208 {
+public class PemilihanPercobaan208 {
     public static void main(String[] args) {
         Scanner input08 = new Scanner(System.in);
         System.out.print("Nilai uas      :");
