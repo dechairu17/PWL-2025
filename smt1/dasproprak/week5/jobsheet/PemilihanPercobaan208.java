@@ -13,17 +13,17 @@ public class PemilihanPercobaan208 {
         float tugas = input08.nextFloat();
         float total = (uas * 0.4F) + (uts * 0.3F) + (kuis * 0.1F) + (tugas * 0.2F);
         if (total > 80 && total <=100 ) {
-            System.out.print(total + "Mendapatkan Nilai A(kualifikasi sangat baik)");
+            System.out.print("Nilai total " + total + "Mendapatkan Nilai A(kualifikasi sangat baik)");
         } else if (total > 73 && total <=80) {
-            System.out.print(total + "Mendapatkan Nilai B+ (lebih dari baik) ");
+            System.out.print("Nilai total " + total + "Mendapatkan Nilai B+ (lebih dari baik) ");
         } else if (total > 65 && total <=73) {
-            System.out.print(total + "Mendapatkan Nilai B (baik)");
+            System.out.print("Nilai total " + total + "Mendapatkan Nilai B (baik)");
         } else if (total > 60 && total <=65) {
-            System.out.print(total + "Mendapatkan Nilai C+ (lebih dari cukup)");
+            System.out.print("Nilai total " + total + "Mendapatkan Nilai C+ (lebih dari cukup)");
         } else if (total > 50 && total<= 60) {
-            System.out.print(total + "Mendapatkan Nilai C (cukup)");
+            System.out.print("Nilai total " + total + "Mendapatkan Nilai C (cukup)");
         } else if (total > 39 && total <= 50) {
-            System.out.print(total + "Mendapatkan Nilai D (kurang)");
+            System.out.print("Nilai total " + total + "Mendapatkan Nilai D (kurang)");
         } else if (total <= 39) {
             System.out.print(total + "Mendapat Nilai E (gagal)");
         }
