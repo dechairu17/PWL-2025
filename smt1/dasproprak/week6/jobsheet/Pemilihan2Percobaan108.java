@@ -2,7 +2,7 @@ package week6.jobsheet;
 
 import java.util.Scanner;
 
-public class Pemilihan2Percobaan08 {
+public class Pemilihan2Percobaan108 {
     public static void main(String[] args) {
         
         Scanner Input08 = new Scanner(System.in);
