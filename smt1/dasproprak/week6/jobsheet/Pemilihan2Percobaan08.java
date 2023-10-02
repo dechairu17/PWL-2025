@@ -11,9 +11,12 @@ public class Pemilihan2Percobaan08 {
         System.out.print("Masukan tahun : ");
         tahun = Input08.nextInt();
 
-        if ((tahun % 8) == 0 ) {
+        if ((tahun % 4) == 0 ) {
             if ((tahun % 100) != 0)
                 System.out.println("Tahun Kabisat ");
+                else {
+                    System.out.println("Bukan tahun kabisat");
+                }
         } else {
             System.out.println("Bukan Tahun Kabisat");
         }
