@@ -30,7 +30,7 @@ public class Pemilihan2Percobaan308 {
             else 
                 pajak = 0.25;
             gajiBersih = (int) (penghasilan - ( pajak * penghasilan));
-            System.out.print("Penghasil Bersih : ");
+            System.out.print("Penghasil Bersih : " + gajiBersih );
         }else 
             System.out.println("Masukan kategori salah");
     }
