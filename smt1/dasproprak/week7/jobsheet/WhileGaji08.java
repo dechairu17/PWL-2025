@@ -6,7 +6,7 @@ public class WhileGaji08 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int jumlahKaryawan, jumlahJamLembur;
-        double gajiLembur, totalGajiLembur;
+        double gajiLembur = 0, totalGajiLembur = 0;
         String jabatan;
         
         System.out.print("Masukan jumlah karyawan : ");
@@ -15,9 +15,9 @@ public class WhileGaji08 {
         int i =0;
         while (i < jumlahKaryawan){
             System.out.println("Pilihan jabatan -Direktur, Manajer, Karyawan");
-            System.out.println("Masukan jabatan karyawan ke-" + (i+1) + ": ");
+            System.out.print("Masukan jabatan karyawan ke-" + (i+1) + ": ");
             jabatan = sc.next();
-            System.out.println("Masukan jumlah jam lembur : ");
+            System.out.print("Masukan jumlah jam lembur : ");
             jumlahJamLembur = sc.nextInt();
             i++;
 
@@ -31,6 +31,6 @@ public class WhileGaji08 {
 
             totalGajiLembur += gajiLembur;
         }
-
+        System.out.print("Total gaji lembur : " + totalGajiLembur);
     }
 }
