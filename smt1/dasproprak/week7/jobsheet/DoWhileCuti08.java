@@ -2,7 +2,7 @@ package week7.jobsheet;
 
 import java.util.Scanner;
 
-public class DoWhileCuti {
+public class DoWhileCuti08 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int jatahCuti, jumlahHari;
