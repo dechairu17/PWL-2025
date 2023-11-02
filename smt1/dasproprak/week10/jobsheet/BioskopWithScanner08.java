@@ -28,6 +28,7 @@ public class BioskopWithScanner08 {
             while (true) {
             System.out.print("Masukan nama :");
             nama = sc.next();
+
             System.out.print("Masukan baris :");
             baris = sc.nextInt();
             System.out.print("Masukan kolom :");
@@ -37,7 +38,12 @@ public class BioskopWithScanner08 {
             penonton[baris-1][kolom-1] = nama;
 
             if (baris == 1 && kolom == 2) {
-                System.out.println("Kursi tidak tersedia");
+                System.out.println("!!!Kursi yang anda pilih tidak Tersedia, Silahkan pilih kursi kembali!!!");
+                System.out.print("Masukan baris :");
+                baris = sc.nextInt();
+                System.out.print("Masukan kolom :");
+                kolom = sc.nextInt();
+                sc.nextLine();
             }
             System.out.print("Input penonton lainnya (y/n) : ");
             next = sc.nextLine();
