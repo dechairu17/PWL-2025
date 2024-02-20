@@ -1,5 +1,3 @@
-package jobsheet2;
-
 public class Buku08 {
     String judul, pengarang;
     int halaman, stock, harga;
@@ -22,5 +20,15 @@ public class Buku08 {
 
     void gantiHarga (int hrg){
         harga = hrg;
+    }
+    public Buku08 (){
+
+    }
+    public Buku08 (String jud, String pg, int hal, int stock, int har){
+        judul = jud;
+        pengarang = pg;
+        halaman = hal;
+        this.stock = stock;
+        harga = har;
     }
 }
