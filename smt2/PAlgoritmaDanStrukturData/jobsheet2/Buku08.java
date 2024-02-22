@@ -11,14 +11,8 @@ public class Buku08 {
     }
 
     void terjual(int jml){
-        if (stock > 0) {
-            stock -= jml;
-            System.out.println(jml + " buku terjual.");
-        } else {
-            System.out.println("Stok habis, tidak bisa menjual buku.");
-        }
+        stock -= jml ;
     }
-    
 
     void restock (int jml){
         stock += jml;
@@ -36,20 +30,5 @@ public class Buku08 {
         halaman = hal;
         this.stock = stock;
         harga = har;
-    }
-
-    public void hitungHargaTotal(Object terjual) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'hitungHargaTotal'");
-    }
-
-    public void hitungHargaTotal(Object terjual) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'hitungHargaTotal'");
-    }
-
-    public void hitungHargaTotal(Object terjual) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'hitungHargaTotal'");
     }
 }
