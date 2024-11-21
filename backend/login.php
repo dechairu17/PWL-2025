@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     // Simpan data user di session
                     $_SESSION['user_id'] = $userData['iduser'];
                     $_SESSION['username'] = $userData['username'];
-                    header("Location: ../index.html"); // Redirect ke halaman setelah login berhasil
+                    header("Location: ../src/Dashboard.html"); // Redirect ke halaman setelah login berhasil
                     exit;
                 } else {
                     echo "Password salah.";
