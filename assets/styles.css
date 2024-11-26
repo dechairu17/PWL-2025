@@ -55,19 +55,30 @@
 }
 
 .faq-answer {
-    display: none;
-    padding: 15px 20px;
-    background-color: #f9f9f9;
-    color: #333;
-    font-size: 16px;
-    line-height: 1.5;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
 }
-
-/* CSS for Active States */
 .faq-item.active .faq-answer {
-    display: block;
+    max-height: 200px; /* Sesuaikan sesuai panjang jawaban */
 }
 
 .faq-item.active .toggle-icon {
     transform: rotate(180deg);
 }
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+    }
+    .nav-links {
+        display: none;
+    }
+    .nav-links.active {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+
+
