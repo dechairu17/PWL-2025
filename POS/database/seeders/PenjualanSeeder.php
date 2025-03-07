@@ -9,13 +9,16 @@ class PenjualanSeeder extends Seeder
 {
     public function run()
     {
-        for ($i = 1; $i <= 10; $i++) {
-            DB::table('t_penjualan')->insert([
-                'user_id'           => 1, 
-                'pembeli'           => 'Pelanggan ' . $i,
-                'penjualan_kode'    => 'TRX' . str_pad($i, 3, '0', STR_PAD_LEFT),
+        DB::table('t_penjualan')->delete();
+
+        DB::table('t_penjualan')->insert([
+            [
+                'user_id'           => 1, // Pastikan user ada di m_user
+                'pembeli'           => 'Pelanggan 1',
+                'penjualan_kode'    => 'TRX001',
                 'penjualan_tanggal' => now(),
-            ]);
-        }
+            ],
+            // Tambahkan data penjualan lainnya jika perlu
+        ]);
     }
 }

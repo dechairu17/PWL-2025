@@ -9,6 +9,8 @@ class BarangSeeder extends Seeder
 {
     public function run()
     {
+        DB::table('m_barang')->delete();
+
         DB::table('m_barang')->insert([
             [
                 'kategori_id' => 1,

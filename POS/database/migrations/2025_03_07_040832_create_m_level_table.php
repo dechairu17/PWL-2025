@@ -9,7 +9,7 @@ class CreateMLevelTable extends Migration
     public function up()
     {
         Schema::create('m_level', function (Blueprint $table) {
-            $table->id('level_id'); // Primary key bernama level_id
+            $table->id('level_id'); // Primary key auto-increment
             $table->string('level_kode', 10)->unique();
             $table->string('level_nama', 100);
             $table->timestamps();

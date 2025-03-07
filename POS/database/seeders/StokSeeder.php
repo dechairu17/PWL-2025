@@ -9,13 +9,16 @@ class StokSeeder extends Seeder
 {
     public function run()
     {
-        for ($i = 1; $i <= 10; $i++) {
-            DB::table('t_stok')->insert([
-                'barang_id'   => $i,
-                'user_id'     => 1, 
-                'stok_tanggal' => now(),
-                'stok_jumlah' => rand(10, 50),
-            ]);
-        }
+        DB::table('t_stok')->delete();
+
+        DB::table('t_stok')->insert([
+            [
+                'barang_id'   => 1, // Pastikan data di m_barang sudah ada
+                'user_id'     => 1, // Pastikan data di m_user sudah ada
+                'stok_tanggal'=> now(),
+                'stok_jumlah' => 10,
+            ],
+            // Tambahkan data stok lainnya jika perlu
+        ]);
     }
 }

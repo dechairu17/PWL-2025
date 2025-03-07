@@ -9,7 +9,7 @@ class CreateMBarangTable extends Migration
     public function up()
     {
         Schema::create('m_barang', function (Blueprint $table) {
-            $table->id('barang_id'); // Primary key bernama barang_id
+            $table->id('barang_id'); // Primary key auto-increment
             $table->unsignedBigInteger('kategori_id');
             $table->string('barang_kode', 10)->unique();
             $table->string('barang_nama', 100);
@@ -17,7 +17,6 @@ class CreateMBarangTable extends Migration
             $table->integer('harga_jual');
             $table->timestamps();
 
-            // Foreign key: kategori_id merujuk ke m_kategori.kategori_id
             $table->foreign('kategori_id')
                   ->references('kategori_id')->on('m_kategori')
                   ->onDelete('cascade');

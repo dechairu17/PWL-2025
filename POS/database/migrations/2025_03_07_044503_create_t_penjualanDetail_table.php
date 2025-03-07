@@ -9,19 +9,17 @@ class CreateTPenjualanDetailTable extends Migration
     public function up()
     {
         Schema::create('t_penjualan_detail', function (Blueprint $table) {
-            $table->id('detail_id'); // Primary key bernama detail_id
+            $table->id('detail_id'); // Primary key auto-increment
             $table->unsignedBigInteger('penjualan_id');
             $table->unsignedBigInteger('barang_id');
             $table->integer('harga');
             $table->integer('jumlah');
             $table->timestamps();
 
-            // Foreign key: penjualan_id mengacu ke t_penjualan.penjualan_id
             $table->foreign('penjualan_id')
                   ->references('penjualan_id')->on('t_penjualan')
                   ->onDelete('cascade');
 
-            // Foreign key: barang_id mengacu ke m_barang.barang_id
             $table->foreign('barang_id')
                   ->references('barang_id')->on('m_barang')
                   ->onDelete('cascade');
