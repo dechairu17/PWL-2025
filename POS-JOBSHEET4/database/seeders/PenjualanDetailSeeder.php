@@ -4,21 +4,32 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class PenjualanDetailSeeder extends Seeder
 {
-    public function run()
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
     {
-        DB::table('t_penjualan_detail')->delete();
+        $data = [];
+        for ($i = 1; $i <= 10; $i++) {
+            for ($j = 1; $j <= 3; $j++) {
+                $barang_id = rand(1, 10);
+                $harga = DB::table('m_barang')->where('barang_id', $barang_id)->value('harga_jual');
+                $jumlah = rand(1, 5);
 
-        DB::table('t_penjualan_detail')->insert([
-            [
-                'penjualan_id' => 1, // Pastikan penjualan ada di t_penjualan
-                'barang_id'    => 1, // Pastikan barang ada di m_barang
-                'harga'        => 6000000,
-                'jumlah'       => 1,
-            ],
-            // Tambahkan data penjualan detail lainnya jika perlu
-        ]);
+                $data[] = [
+                    'detail_id' => null, // Auto Increment
+                    'penjualan_id' => $i,
+                    'barang_id' => $barang_id,
+                    'harga' => $harga,
+                    'jumlah' => $jumlah,
+                ];
+            }
+        }
+
+        DB::table('t_penjualan_detail')->insert($data);
     }
 }

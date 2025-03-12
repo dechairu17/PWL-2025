@@ -26,9 +26,9 @@ class KategoriController extends Controller
         return 'Update data berhasil. Jumlah data yang diupdate: ' . $row . ' baris';
         */
 
-        // Contoh delete data (aktif)
-        $row = DB::table('m_kategori')->where('kategori_kode', 'SNK')->delete();
-        return 'Delete data berhasil. Jumlah data yang dihapus: ' . $row . ' baris';
+         // Contoh delete data (aktif)
+        // $row = DB::table('m_kategori')->where('kategori_kode', 'SNK')->delete();
+        // return 'Delete data berhasil. Jumlah data yang dihapus: ' . $row . ' baris';
 
         // Fetch data untuk ditampilkan di view
         $data = DB::table('m_kategori')->get();

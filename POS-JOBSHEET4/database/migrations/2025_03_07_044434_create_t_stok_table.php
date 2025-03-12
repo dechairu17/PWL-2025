@@ -4,30 +4,33 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTStokTable extends Migration
+return new class extends Migration
 {
-    public function up()
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
         Schema::create('t_stok', function (Blueprint $table) {
-            $table->id('stok_id'); // Primary key auto-increment
-            $table->unsignedBigInteger('barang_id');
-            $table->unsignedBigInteger('user_id');
-            $table->dateTime('stok_tanggal');
+            $table->id('stok_id');
+            $table->unsignedBigInteger('barang_id')->index(); // Indexing FK
+            $table->unsignedBigInteger('user_id')->index(); // Indexing FK
+            $table->datetime('stok_tanggal');
             $table->integer('stok_jumlah');
             $table->timestamps();
 
-            $table->foreign('barang_id')
-                  ->references('barang_id')->on('m_barang')
-                  ->onDelete('cascade');
-
-            $table->foreign('user_id')
-                  ->references('user_id')->on('m_user')
-                  ->onDelete('cascade');
+            // Foreign key yang merujuk ke kolom barang_id di tabel m_barang
+            $table->foreign('barang_id')->references('barang_id')->on('m_barang');
+            // Foreign key yang merujuk ke kolom user_id di tabel m_user
+            $table->foreign('user_id')->references('user_id')->on('m_user');
         });
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
         Schema::dropIfExists('t_stok');
     }
-}
+};

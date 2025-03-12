@@ -5,35 +5,39 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
 {
-    public function run()
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
     {
-        DB::table('m_user')->delete();
-
-        DB::table('m_user')->insert([
+        $data = [
             [
+                'user_id' => 1,
                 'level_id' => 1,
                 'username' => 'admin',
-                'nama'     => 'Administrator',
-                'email'    => 'admin@example.com',
+                'nama' => 'Administrator',
                 'password' => Hash::make('12345'),
             ],
             [
+                'user_id' => 2,
                 'level_id' => 2,
                 'username' => 'manager',
-                'nama'     => 'Manager',
-                'email'    => 'manager@example.com',
+                'nama' => 'Manager',
                 'password' => Hash::make('12345'),
             ],
             [
+                'user_id' => 3,
                 'level_id' => 3,
                 'username' => 'staff',
-                'nama'     => 'Staff/Kasir',
-                'email'    => 'staff@example.com',
+                'nama' => 'Staff/Kasir',
                 'password' => Hash::make('12345'),
             ],
-        ]);
+        ];
+
+        DB::table('m_user')->insert($data);
     }
 }

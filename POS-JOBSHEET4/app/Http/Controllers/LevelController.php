@@ -7,15 +7,18 @@ use Illuminate\Support\Facades\DB;
 
 class LevelController extends Controller
 {
-    public function index()
-{
-    // DB::insert('INSERT IGNORE INTO m_level(level_kode, level_nama, created_at) VALUES(?, ?, ?)', 
-    // ['CUS', 'Pelanggan', now()]);
+    public function index(){
+        // DB::insert('insert into m_level (level_kode, level_nama, created_at) values (?, ?, ?)', ['CUS', 'Pelanggan', now()]);
+        // return 'insert data baru berhasil';
 
-    // return 'Data berhasil ditambahkan (atau sudah ada sebelumnya).';
 
-    $data = DB::select('select * from m_level');
-    return view('level' , ['data' => $data]);
-}
+        // $row = DB::update('update m_level set level_nama = ? where level_kode = ?', ['Customer', 'CUS']);
+        // return 'Update data berhasil. Jumlah data yang diupdate: ' . $row;
 
+        // $row = DB::delete('delete from m_level where level_kode = ?', ['CUS']);
+        // return 'Delete data berhasil. Jumlah data yang dihapus: ' . $row;
+
+        $data = DB::select('select * from m_level');
+        return view('level', ['data' => $data]);
+    }
 }

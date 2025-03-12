@@ -4,21 +4,26 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class PenjualanSeeder extends Seeder
 {
-    public function run()
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
     {
-        DB::table('t_penjualan')->delete();
-
-        DB::table('t_penjualan')->insert([
-            [
-                'user_id'           => 1, // Pastikan user ada di m_user
-                'pembeli'           => 'Pelanggan 1',
-                'penjualan_kode'    => 'TRX001',
+        $data = [];
+        for ($i = 1; $i <= 10; $i++) {
+            $data[] = [
+                'penjualan_id' => $i,
+                'user_id' => 1,
+                'pembeli' => 'Pelanggan ' . $i,
+                'penjualan_kode' => 'TRX' . str_pad($i, 3, '0', STR_PAD_LEFT),
                 'penjualan_tanggal' => now(),
-            ],
-            // Tambahkan data penjualan lainnya jika perlu
-        ]);
+            ];
+        }
+
+        DB::table('t_penjualan')->insert($data);
     }
 }
