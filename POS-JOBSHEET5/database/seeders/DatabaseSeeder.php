@@ -1,21 +1,19 @@
 <?php
-
-namespace Database\Seeders;
-
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         $this->call([
             LevelSeeder::class,
-            KategoriSeeder::class,
             UserSeeder::class,
-            BarangSeeder::class,
-            StokSeeder::class,
-            PenjualanSeeder::class,
-            PenjualanDetailSeeder::class,
+            BarangSeeder::class, // ✅ Pastikan ini dijalankan sebelum StokSeeder
+            StokSeeder::class
         ]);
     }
 }
