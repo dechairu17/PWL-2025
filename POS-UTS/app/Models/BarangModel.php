@@ -21,3 +21,4 @@ class BarangModel extends Model
         return $this->belongsTo(KategoriModel::class, 'kategori_id', 'Kategori_id');
     }
 }
+

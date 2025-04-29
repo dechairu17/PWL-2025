@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LevelModel;
 use App\Models\BarangModel;
 use App\Models\KategoriModel;
+use App\Models\DetailBarang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -239,4 +240,25 @@ class BarangController extends Controller
 
         return redirect('/');
     }
+
+    public function detail($barang_kode)
+{
+    $detail = DetailBarang::with('kategori')->where('barang_kode', $barang_kode)->first();
+
+    if ($detail) {
+        $view = view('barang.detail', ['barang' => $detail])->render();
+
+        return response()->json([
+            'status' => true,
+            'view' => $view
+        ]);
+    } else {
+        return response()->json([
+            'status' => false,
+            'message' => 'Detail barang tidak ditemukan'
+        ], 404);
+    }
+}
+
+        
 }
