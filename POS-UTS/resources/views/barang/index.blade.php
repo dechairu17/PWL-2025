@@ -5,9 +5,7 @@
         <div class="card-header">
             <h3 class="card-title">Daftar Barang</h3>
             <div class="card-tools">
-
                 <button onclick="modalAction('{{ url('/barang/import') }}')" class="btn btn-info">Import Barang</button>
-
                 <a href="{{ url('/barang/create') }}" class="btn btn-primary">Tambah Data (Ajax)</a>
             </div>
         </div>
@@ -54,22 +52,36 @@
             <tbody></tbody>
         </table>
     </div>
-    </div>
 
     <div id="myModal" class="modal fade animate shake" tabindex="-1" data-backdrop="static" data-keyboard="false"
         data-width="75%"></div>
+
+    <!-- Modal Detail -->
+    <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title">Detail Barang</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body" id="detailContent">
+                    <div class="text-center">Loading...</div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('js')
     <script>
         function modalAction(url = '') {
-            $('#myModal').load(url, function() {
+            $('#myModal').load(url, function () {
                 $('#myModal').modal('show');
             });
         }
 
         var dataUser;
-        $(document).ready(function() {
+        $(document).ready(function () {
             dataUser = $('#table-barang').DataTable({
                 processing: true,
                 serverSide: true,
@@ -77,66 +89,73 @@
                     url: "{{ url('barang/list') }}",
                     type: "POST",
                     dataType: "json",
-                    // Kirim Kategori_id sebagai parameter untuk filter
-                    data: function(d) {
-                        d.Kategori_id = $('.filter_Kategori').val();
+                    data: function (d) {
+                        d.Kategori_id = $('.filter_kategori').val();
                     }
                 },
-                columns: [{
-                        data: "DT_RowIndex",
-                        className: "text-center",
-                        width: "5%",
-                        orderable: false,
-                        searchable: false
+                columns: [
+                    { data: "DT_RowIndex", className: "text-center", width: "5%", orderable: false, searchable: false },
+                    { data: "barang_kode", width: "10%" },
+                    { data: "barang_nama", width: "25%" },
+                    {
+                        data: "harga_beli", width: "10%", render: function (data) {
+                            return new Intl.NumberFormat('id-ID').format(data);
+                        }
                     },
+                    {
+                        data: "harga_jual", width: "10%", render: function (data) {
+                            return new Intl.NumberFormat('id-ID').format(data);
+                        }
+                    },
+                    { data: "kategori.kategori_nama", width: "15%" },
                     {
                         data: "barang_kode",
-                        className: "",
-                        width: "10%"
-                    },
-                    {
-                        data: "barang_nama",
-                        className: "",
-                        width: "25%"
-                    },
-                    {
-                        data: "harga_beli",
-                        className: "",
-                        width: "10%",
-                        render: function(data) {
-                            return new Intl.NumberFormat('id-ID').format(data);
-                        }
-                    },
-                    {
-                        data: "harga_jual",
-                        className: "",
-                        width: "10%",
-                        render: function(data) {
-                            return new Intl.NumberFormat('id-ID').format(data);
-                        }
-                    },
-                    {
-                        data: "kategori.kategori_nama",
-                        className: "",
-                        width: "15%"
-                    },
-                    {
-                        data: "aksi",
                         className: "text-center",
                         width: "15%",
                         orderable: false,
-                        searchable: false
+                        searchable: false,
+                        render: function (kode) {
+                            return `
+                                <button class="btn btn-sm btn-info btn-detail" data-kode="${kode}">Detail</button>
+                                <a href="/barang/edit/${kode}" class="btn btn-sm btn-warning">Edit</a>
+                                <button onclick="modalAction('/barang/confirm/${kode}')" class="btn btn-sm btn-danger">Hapus</button>
+                            `;
+                        }
                     }
                 ]
             });
-            $('#table-barang_filter input').unbind().bind('keyup', function(e) {
+
+            $('#table-barang_filter input').unbind().bind('keyup', function (e) {
                 if (e.keyCode == 13) {
-                    datUser.search(this.value).draw();
+                    dataUser.search(this.value).draw();
                 }
             });
 
-            $('.filter_kategori').change(function() {
-                datUser.draw();
+            $('.filter_kategori').change(function () {
+                dataUser.draw();
+            });
+
+            // Tombol Detail
+            $(document).on('click', '.btn-detail', function () {
+                let kode = $(this).data('kode');
+                $('#detailContent').html('<div class="text-center">Memuat...</div>');
+                $('#modalDetail').modal('show');
+
+                // AJAX request to fetch data for the selected item
+                $.ajax({
+                    url: `/barang/detail/${kode}`,  // Ensure that the route is correct
+                    type: 'GET',
+                    success: function (res) {
+                        if (res.status) {
+                            $('#detailContent').html(res.data);  // Load the data into modal
+                        } else {
+                            $('#detailContent').html('<div class="alert alert-danger">Gagal mengambil data.</div>');
+                        }
+                    },
+                    error: function () {
+                        $('#detailContent').html('<div class="alert alert-danger">Gagal mengambil data.</div>');
+                    }
+                });
             });
         });
     </script>

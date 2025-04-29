@@ -10,19 +10,19 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('t_penjualan_detail', function (Blueprint $table) {
-            $table->id('detail_id');
-            $table->unsignedBigInteger('penjualan_id')->index();
-            $table->unsignedBigInteger('barang_id')->index();
-            $table->integer('jumlah_barang');
-            $table->integer('harga_barang');
-            $table->timestamps();
+{
+    Schema::create('t_penjualan', function (Blueprint $table) {
+        $table->id('penjualan_id');
+        $table->unsignedBigInteger('user_id');
+        $table->string('pembeli');
+        $table->string('penjualan_kode')->unique();
+        $table->datetime('tanggal_penjualan');
+        $table->timestamps();
 
-            $table->foreign('penjualan_id')->references('penjualan_id')->on('t_penjualan')->onDelete('cascade');
-            $table->foreign('barang_id')->references('barang_id')->on('m_barang')->onDelete('cascade');
-        });
-    }
+        $table->foreign('user_id')->references('user_id')->on('m_user')->onDelete('cascade');
+    });
+}
+
 
     /**
      * Reverse the migrations.

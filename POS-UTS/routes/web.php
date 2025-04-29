@@ -6,6 +6,8 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\StokController;
+use App\Http\Controllers\PenjualanController;
 use App\Models\SupplierModel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -42,7 +44,9 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
             Route::get('/{id}/delete_ajax', [UserController::class, 'confirm_ajax']); // Untuk tampilan confirm delete user ajax
             Route::delete('/{id}/delete_ajax', [UserController::class, 'delete_ajax']); // untuk hapus data user ajax
             Route::delete('/{id}', [UserController::class, 'destroy']); // menghapus data user
-            Route::get('/barang/detail/{kode}', [BarangController::class, 'detail']); // detail barang
+            Route::get('/barang/detail/{kode}', [BarangController::class, 'showDetail']);
+            Route::resource('stok', StokController::class);
+            Route::resource('penjualan', PenjualanController::class);
 
         });
     });
@@ -64,7 +68,9 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
         Route::get('/level/{id}/delete_ajax', [LevelController::class, 'confirm_ajax']); // Untuk tampilan confirm delete user ajax
         Route::delete('/level/{id}/delete_ajax', [LevelController::class, 'delete_ajax']); // untuk hapus data user ajax 
         Route::delete('/level/{id}', [LevelController::class, 'destroy']);
-        Route::get('/barang/detail/{kode}', [BarangController::class, 'detail']); // detail barang
+        Route::get('/barang/detail/{kode}', [BarangController::class, 'showDetail']); // detail barang
+        Route::resource('stok', StokController::class);
+        Route::resource('penjualan', PenjualanController::class);
     });
     Route::middleware(['authorize:ADM,MNG'])->group(function () {
         Route::group(['prefix' => 'kategori'], function () {
@@ -82,7 +88,9 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
             Route::get('/{id}/delete_ajax', [KategoriController::class, 'confirm_ajax']); // Untuk tampilan confirm delete user ajax
             Route::delete('/{id}/delete_ajax', [KategoriController::class, 'delete_ajax']); // untuk hapus data user ajax 
             Route::delete('/{id}', [KategoriController::class, 'destroy']);
-            Route::get('/barang/detail/{kode}', [BarangController::class, 'detail']); // detail barang
+            Route::get('/barang/detail/{kode}', [BarangController::class, 'showDetail']); // detail barang
+            Route::resource('stok', StokController::class);
+            Route::resource('penjualan', PenjualanController::class);
         });
     });
     Route::middleware(['authorize:ADM,MNG'])->group(function () {
@@ -101,7 +109,9 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
             Route::get('/{id}/delete_ajax', [SupplierController::class, 'confirm_ajax']); // Untuk tampilan confirm delete user ajax
             Route::delete('/{id}/delete_ajax', [SupplierController::class, 'delete_ajax']); // untuk hapus data user ajax 
             Route::delete('/{id}', [SupplierController::class, 'destroy']);
-            Route::get('/barang/detail/{kode}', [BarangController::class, 'detail']); // detail barang
+            Route::get('/barang/detail/{kode}', [BarangController::class, 'showDetail']); // detail barang
+            Route::resource('stok', StokController::class);
+            Route::resource('penjualan', PenjualanController::class);
         });
     });
     // artinya semua route di grup ini harus punya role admin dan manager
@@ -122,6 +132,8 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
         Route::delete('/barang/{id}/delete_ajax', [BarangController::class, 'delete_ajax']); // untuk hapus data user ajax 
         Route::get('/barang/import', [BarangController::class, 'import']); // ajax form upload excel
         Route::post('/barang/import_ajax', [BarangController::class, 'import_ajax']); // ajax import excel
-        Route::get('/barang/detail/{kode}', [BarangController::class, 'detail']); // detail barang
+        Route::get('/barang/detail/{kode}', [BarangController::class, 'showDetail']); // detail barang
+        Route::resource('stok', StokController::class);
+        Route::resource('penjualan', PenjualanController::class);
     });
 });

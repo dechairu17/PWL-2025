@@ -10,19 +10,22 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('t_stok', function (Blueprint $table) {
-            $table->id('stok_id');
-            $table->unsignedBigInteger('barang_id')->index();
-            $table->unsignedBigInteger('user_id')->index();
-            $table->datetime('stok_tanggal_masuk');
-            $table->integer('stok_jumlah');
-            $table->timestamps();
+{
+    Schema::create('t_stok', function (Blueprint $table) {
+        $table->id('stok_id');
+        $table->unsignedBigInteger('barang_id');
+        $table->unsignedBigInteger('user_id');
+        $table->unsignedBigInteger('supplier_id');
+        $table->datetime('stok_tanggal_masuk');
+        $table->integer('stok_jumlah');
+        $table->timestamps();
 
-            $table->foreign('barang_id')->references('barang_id')->on('m_barang')->onDelete('cascade');
-            $table->foreign('user_id')->references('user_id')->on('m_user')->onDelete('cascade');
-        });
-    }
+        $table->foreign('barang_id')->references('barang_id')->on('m_barang')->onDelete('cascade');
+        $table->foreign('user_id')->references('user_id')->on('m_user')->onDelete('cascade');
+        $table->foreign('supplier_id')->references('supplier_id')->on('suppliers')->onDelete('cascade');
+    });
+}
+
 
     /**
      * Reverse the migrations.

@@ -241,24 +241,30 @@ class BarangController extends Controller
         return redirect('/');
     }
 
-    public function detail($barang_kode)
-{
-    $detail = DetailBarang::with('kategori')->where('barang_kode', $barang_kode)->first();
-
-    if ($detail) {
-        $view = view('barang.detail', ['barang' => $detail])->render();
-
+    public function showDetail($kode)
+    {
+        // Cek apakah barang dengan kode tertentu ada
+        $barang = BarangModel::with('kategori')->where('barang_kode', $kode)->first();
+    
+        // Jika barang tidak ditemukan, beri respons error
+        if (!$barang) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
+            ]);
+        }
+    
+        // Mengembalikan data barang yang ditemukan sebagai HTML untuk modal
         return response()->json([
             'status' => true,
-            'view' => $view
+            'data' => view('barang._detail', compact('barang'))->render()
         ]);
-    } else {
-        return response()->json([
-            'status' => false,
-            'message' => 'Detail barang tidak ditemukan'
-        ], 404);
     }
-}
+
+    
+    
+
+
 
         
 }
