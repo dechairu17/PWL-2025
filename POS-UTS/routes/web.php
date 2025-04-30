@@ -135,5 +135,7 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
         Route::get('/barang/detail/{kode}', [BarangController::class, 'showDetail']); // detail barang
         Route::resource('stok', StokController::class);
         Route::resource('penjualan', PenjualanController::class);
+        Route::post('stok/{id}/beli', [StokController::class, 'beli'])->name('stok.beli');
+
     });
 });

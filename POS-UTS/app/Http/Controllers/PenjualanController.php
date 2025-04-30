@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
 {
+    public function index()
+{
+    $activeMenu = 'penjualan'; // Menandai menu penjualan aktif
+    return view('penjualan.index', compact('activeMenu'));
+}
+
     public function create()
     {
         $barang = BarangModel::all();

@@ -10,17 +10,19 @@
                 @csrf
                 <div class="form-group">
                     <label for="barang_id">Barang</label>
-                    <select name="barang_id" class="form-control" id="barang_id" required>
+                    <select name="barang_id" class="form-control" required>
                         @foreach ($barang as $item)
                             <option value="{{ $item->barang_id }}">{{ $item->barang_nama }}</option>
                         @endforeach
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label for="stok_jumlah">Jumlah Stok</label>
-                    <input type="number" name="stok_jumlah" class="form-control" id="stok_jumlah" required>
+                    <input type="number" name="stok_jumlah" class="form-control" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+
+                <button type="submit" class="btn btn-primary">Tambah Stok</button>
                 <a href="{{ route('stok.index') }}" class="btn btn-secondary">Kembali</a>
             </form>
         </div>

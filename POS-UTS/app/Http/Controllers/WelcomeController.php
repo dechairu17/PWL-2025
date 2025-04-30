@@ -10,8 +10,9 @@ class WelcomeController extends Controller
             'list'  => ['Home', 'Welcome']
         ];
 
-        $activeMenu = 'dashboard';
+        $activeMenu = 'dashboard';  // Menandai menu dashboard aktif
 
-        return view('welcome', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        // Pastikan variabel activeMenu diteruskan ke view
+        return view('welcome', compact('breadcrumb', 'activeMenu'));
     }
 }

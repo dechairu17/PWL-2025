@@ -3,11 +3,9 @@
 @section('content')
     <div class="card card-outline card-primary">
         <div class="card-header">
-            <h3 class="card-title">Stok Barang</h3>
+            <h3 class="card-title">Daftar Stok Barang</h3>
             <div class="card-tools">
                 <a class="btn btn-sm btn-primary mt-1" href="{{ route('stok.create') }}">Tambah Stok</a>
-                <button onclick="modalAction('{{ url('/stok/create_ajax') }}')" class="btn btn-sm btn-success mt-1">Tambah
-                    Ajax</button>
             </div>
         </div>
         <div class="card-body">
@@ -27,54 +25,29 @@
                         <th>Aksi</th>
                     </tr>
                 </thead>
+                <tbody>
+                    @foreach ($stok as $item)
+                        <tr>
+                            <td>{{ $item->stok_id }}</td>
+                            <td>{{ $item->barang->barang_nama }}</td>
+                            <td>{{ $item->stok_jumlah }}</td>
+                            <td>
+                                <form action="{{ route('stok.beli', $item->stok_id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    <input type="number" name="jumlah_beli" class="form-control" min="1" max="{{ $item->stok_jumlah }}" placeholder="Jumlah beli" required>
+                                    <button type="submit" class="btn btn-sm btn-success">Beli</button>
+                                </form>
+                                <a href="{{ route('stok.edit', $item->stok_id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <form method="POST" action="{{ route('stok.destroy', $item->stok_id) }}" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
             </table>
         </div>
     </div>
-    <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" databackdrop="static"
-        data-keyboard="false" data-width="75%" aria-hidden="true"></div>
 @endsection
-
-@push('css')
-@endpush
-
-@push('js')
-    <script>
-        function modalAction(url = '') {
-            $('#myModal').load(url, function() {
-                $('#myModal').modal('show');
-            });
-        }
-
-        var dataStok;
-        $(document).ready(function() {
-            dataStok = $('#table_stok').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ url('stok/list') }}",
-                    type: "POST",
-                    dataType: "json"
-                },
-                columns: [{
-                        data: "stok_id",
-                        className: "text-center",
-                        orderable: true
-                    },
-                    {
-                        data: "barang.barang_nama",
-                        orderable: true
-                    },
-                    {
-                        data: "stok_jumlah",
-                        orderable: true
-                    },
-                    {
-                        data: "aksi",
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
-            });
-        });
-    </script>
-@endpush
