@@ -9,10 +9,12 @@ use Illuminate\Http\Request;
 class PenjualanController extends Controller
 {
     public function index()
-{
-    $activeMenu = 'penjualan'; // Menandai menu penjualan aktif
-    return view('penjualan.index', compact('activeMenu'));
-}
+    {
+        $activeMenu = 'penjualan'; // Menandai menu penjualan aktif
+        $penjualan = PenjualanModel::with('user')->get(); // Ambil data penjualan beserta data user yang melakukan penjualan
+        return view('penjualan.index', compact('activeMenu', 'penjualan')); // Kirimkan data penjualan ke view
+    }
+
 
     public function create()
     {
@@ -44,4 +46,6 @@ class PenjualanController extends Controller
 
         return redirect()->route('penjualan.index');
     }
+
+    
 }

@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 class DetailPenjualanModel extends Model
 {
     use HasFactory;
 
-    protected $table = 't_detail_penjualan';
+    protected $table = 't_penjualan_detail';
 
     protected $fillable = [
         'penjualan_id', 'barang_id', 'jumlah_barang', 'harga_barang'

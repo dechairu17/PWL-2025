@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\StokModel;
 use App\Models\BarangModel;
+use App\Models\UserModel;
 use Illuminate\Http\Request;
 
 class StokController extends Controller
@@ -11,7 +12,7 @@ class StokController extends Controller
     public function index()
     {
         $page = (object) ['title' => 'Daftar Stok Barang']; // Judul halaman
-        $stok = StokModel::with('barang')->get(); // Mengambil data stok dan barang terkait
+        $stok = StokModel::with('barang', 'user')->get(); // Mengambil data stok dan barang terkait
         return view('stok.index', compact('stok', 'page'));
     }
 
@@ -29,6 +30,7 @@ class StokController extends Controller
         $request->validate([
             'barang_id' => 'required|exists:m_barang,barang_id',
             'stok_jumlah' => 'required|integer|min:1',
+            'supplier_id' => 'required|exists:suppliers,supplier_id', // Tambahkan validasi supplier_id
         ]);
 
         // Menyimpan data stok baru
@@ -37,11 +39,12 @@ class StokController extends Controller
             'user_id' => auth()->id(),
             'stok_tanggal_masuk' => now(),
             'stok_jumlah' => $request->stok_jumlah,
+            'supplier_id' => $request->supplier_id, // Menyimpan supplier_id
         ]);
 
         return redirect()->route('stok.index')->with('success', 'Stok berhasil ditambahkan');
     }
-    
+
     // Menampilkan form edit stok
     public function edit($id)
     {
@@ -57,12 +60,14 @@ class StokController extends Controller
         $request->validate([
             'barang_id' => 'required|exists:m_barang,barang_id',
             'stok_jumlah' => 'required|integer|min:1',
+            'supplier_id' => 'required|exists:suppliers,supplier_id', // Validasi supplier_id
         ]);
 
         $stok = StokModel::findOrFail($id); // Menemukan stok berdasarkan ID
         $stok->update([
             'barang_id' => $request->barang_id,
             'stok_jumlah' => $request->stok_jumlah,
+            'supplier_id' => $request->supplier_id, // Update supplier_id
         ]);
 
         return redirect()->route('stok.index')->with('success', 'Stok berhasil diperbarui');
@@ -76,13 +81,13 @@ class StokController extends Controller
 
         return redirect()->route('stok.index')->with('success', 'Stok berhasil dihapus');
     }
-    
-    // Menangani pembelian dan mengurangi stok
+
+    // Fungsi untuk pembelian dan mengurangi stok
     public function beli(Request $request, $id)
     {
         // Validasi input
         $request->validate([
-            'jumlah_beli' => 'required|integer|min:1',
+            'jumlah_beli' => 'required|integer|min:1', // Jumlah beli harus valid
         ]);
 
         // Menemukan stok berdasarkan ID
@@ -95,8 +100,10 @@ class StokController extends Controller
 
         // Mengurangi jumlah stok yang ada
         $stok->stok_jumlah -= $request->jumlah_beli;
-        $stok->save();
+        $stok->save(); // Simpan perubahan stok
 
+        // Memberikan notifikasi berhasil
         return redirect()->route('stok.index')->with('success', 'Pembelian berhasil dilakukan, stok diperbarui');
     }
 }
+

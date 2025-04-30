@@ -6,13 +6,12 @@ class WelcomeController extends Controller
     public function index()
     {
         $breadcrumb = (object) [
-            'title' => 'Selamat Datang',
+            'title' => 'Selamat Datang di Store Kami',
             'list'  => ['Home', 'Welcome']
         ];
 
-        $activeMenu = 'dashboard';  // Menandai menu dashboard aktif
+        $activeMenu = 'dashboard';
 
-        // Pastikan variabel activeMenu diteruskan ke view
-        return view('welcome', compact('breadcrumb', 'activeMenu'));
+        return view('welcome', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
     }
 }
